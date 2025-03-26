@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next",
+      "config": {
+        "skipBuildIdentifier": "true",
+        "disableStaticImages": false,
+        "turbotrace": {
+          "logLevel": "error"
+        }
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "SKIP_TYPE_CHECK": "true",
+    "CI": "false"
+  },
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/cleanup-webhooks",
+      "schedule": "0 0 * * *"
+    }
+  ]
+} 
